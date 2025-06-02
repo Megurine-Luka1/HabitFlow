@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+  <!--Bootstrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <!--CSS-->
+  <link rel="stylesheet" href="subpage2.css">
+  <link rel="shortcut icon" href="Images/favicon.ico" type="image/x-icon">
+  <!--AOS-->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!--Fontawesome-->
+  <script src="https://kit.fontawesome.com/c25cabee86.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!--Nav-->
+  <nav class="navbar p-1">
+    <div class="logo ps-2">HabitFlow</div>
+    <input type="checkbox" id="toggle-menu">
+    <label for="toggle-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
+    <ul class="nav-links pt-3 pe-2">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="subpage1.html">Dashboard</a></li>
+      <li class="dropdown">
+        <a href="#">Habits <i class="fas fa-caret-down"></i></a>
+        <ul class="dropdown-menu p-2">
+          <li><a href="subpage2.html">Habit Page</a></li>
+          <li><a href="subpage3.html">Book Recs</a></li>
+        </ul>
+      </li>
+      <li><a href="aboutus.html">About Us</a></li>
+      <li><a href="signin.html">Sign In/Up</a></li>
+    </ul>
+  </nav>
+  <!-- Hero Section -->
+  <div class="hero mb-0">
+    <div class="hero-text">
+      <h1>Nice to Meet You</h1>
+      <p>Welcome to your Habit Tracker! This page helps you stay on top of your goals, track your progress, and build
+        habits that matter. Let's create your best self, one step at a time.</p>
+      <button class="btn mt-4 text-white" style="background-color: #94acf4;" type="button" id="showToastBtn">Mystery
+        Quote!</button>
+    </div>
+    <div class="hero-image">
+      <img src="Images/water_fish-removebg-preview.png" alt="Habit Image">
+    </div>
+  </div>
+  <!-- Toast -->
+  <div class="toast-container">
+    <div class="toast align-items-center text-bg-primary border-0" id="liveToast" role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <p>Protect our planet, it's the only one we've got.</p>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById('showToastBtn').addEventListener('click', function () {
+      const toastLive = document.getElementById('liveToast');
+      const toast = new bootstrap.Toast(toastLive);
+      toast.show();
+    });
+  </script>
+  <!-- Mood Tracker -->
+  <div class="mood-tracker-container mb-5">
+    <div class="mood-header">
+      <h1>How Are You Feeling Today?</h1>
+      <p>Select a mood that best represents your current feeling.</p>
+    </div>
+    <div class="mood-buttons d-flex flex-wrap justify-content-center">
+      <button class="btn mood-happy" style="background-color: #ffe066;" aria-label="Happy 😊">😊</button>
+      <button class="btn mood-sad" style="background-color:  #74c0fc;" aria-label="Sad 😢">😢</button>
+      <button class="btn mood-angry" style="background-color: #ff6b6b;" aria-label="Angry 😡">😡</button>
+      <button class="btn mood-calm" style="background-color: #b2f2bb;" aria-label="Calm 😌">😌</button>
+      <button class="btn mood-tired" style="background-color: #dee2e6;" aria-label="Tired 😴">😴</button>
+    </div>
+  </div>
+<!-- Dynamic Habit Input Tracker -->
+<div class="container py-5">
+  <h1 class="mb-4 text-success text-center">Sustainable Habit Tracker</h1>
+
+  <div class="input-group mb-4">
+    <input type="text" id="habitInput" class="form-control" placeholder="Enter a new sustainable habit (e.g., Use reusable bag)">
+    <button class="btn btn-outline-primary" onclick="addHabit()">Add Habit</button>
+  </div>
+
+  <div id="habitList" class="mb-4"></div>
+
+  <div>
+    <label class="form-label">Progress</label>
+    <div class="progress">
+      <div id="progressBarDynamic" class="progress-bar bg-success" role="progressbar" style="width: 0%">0%</div>
+    </div>
+  </div>
+</div>
+
+<!-- Static Habit Checklist Sections -->
+<div class="container"> 
+  <div class="row">
+    <!-- Checklist 1 -->
+    <div class="col-md-6">
+      <div class="habit-container">
+        <form id="habitForm1" aria-label="Habit checklist 1">
+          <label class="habit-label"><input type="checkbox" name="habit" value="drink-water" /> Drink Water Daily</label>
+          <label class="habit-label"><input type="checkbox" name="habit" value="no-plastic" /> Avoid Plastic Use</label>
+          <label class="habit-label"><input type="checkbox" name="habit" value="plant-tree" /> Plant a Tree</label>
+          <label class="habit-label"><input type="checkbox" name="habit" value="recycle" /> Recycle Daily</label>
+          <label class="habit-label"><input type="checkbox" name="habit" value="switch-lights" /> Switch Off Unused Lights</label>
+        </form>
+        <div class="progress my-4" role="progressbar" aria-label="Habit progress bar">
+          <div id="progressBar1" class="progress-bar bg-success" style="width: 0%">0%</div>
+        </div>
+        <p id="progressText1" class="text-center fw-semibold">Progress: 0/5 completed</p>
+      </div>
+    </div>
+
+    <!-- Checklist 2 -->
+    <div class="col-md-6">
+      <div class="habit-container">
+        <form id="habitForm2" aria-label="Habit checklist 2">
+          <label class="habit-label"><input type="checkbox" name="habit" value="exercise" /> Exercise Regularly</label>
+          <label class="habit-label"><input type="checkbox" name="habit" value="read-books" /> Read Books</label>
+          <label class="habit-label"><input type="checkbox" name="habit" value="meditate" /> Meditate Daily</label>
+          <label class="habit-label"><input type="checkbox" name="habit" value="volunteer" /> Volunteer for Community</label>
+          <label class="habit-label"><input type="checkbox" name="habit" value="healthy-eating" /> Eat Healthy</label>
+        </form>
+        <div class="progress my-4" role="progressbar" aria-label="Habit progress bar">
+          <div id="progressBar2" class="progress-bar bg-success" style="width: 0%">0%</div>
+        </div>
+        <p id="progressText2" class="text-center fw-semibold">Progress: 0/5 completed</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+  let habits = [];
+
+  function addHabit() {
+    const input = document.getElementById("habitInput");
+    const habitText = input.value.trim();
+    if (habitText === "") return;
+
+    habits.push({ text: habitText, done: false });
+    input.value = "";
+    renderHabits();
+  }
+
+  function toggleHabit(index) {
+    habits[index].done = !habits[index].done;
+    renderHabits();
+  }
+
+  function renderHabits() {
+    const list = document.getElementById("habitList");
+    list.innerHTML = "";
+
+    habits.forEach((habit, index) => {
+      const div = document.createElement("div");
+      div.className = "habit-card d-flex justify-content-between align-items-center";
+      div.innerHTML = `
+        <span class="${habit.done ? "completed" : ""}">${habit.text}</span>
+        <button class="btn btn-outline-success btn-sm" onclick="toggleHabit(${index})">
+          ${habit.done ? "Undo" : "Done"}
+        </button>
+      `;
+      list.appendChild(div);
+    });
+
+    updateProgressDynamic();
+  }
+
+  function updateProgressDynamic() {
+    const total = habits.length;
+    const done = habits.filter(h => h.done).length;
+    const percent = total ? Math.round((done / total) * 100) : 0;
+
+    const bar = document.getElementById("progressBarDynamic");
+    bar.style.width = percent + "%";
+    bar.textContent = percent + "%";
+  }
+
+  window.addEventListener('DOMContentLoaded', renderHabits);
+</script>
+
+<script>
+  function updateProgress(formId, progressBarId, progressTextId) {
+    const form = document.getElementById(formId);
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    const totalCheckboxes = checkboxes.length;
+    let completedCheckboxes = 0;
+
+    checkboxes.forEach(checkbox => {
+      if (checkbox.checked) completedCheckboxes++;
+    });
+
+    const progressPercentage = (completedCheckboxes / totalCheckboxes) * 100;
+
+    const progressBar = document.getElementById(progressBarId);
+    const progressText = document.getElementById(progressTextId);
+    progressBar.style.width = progressPercentage + '%';
+    progressBar.textContent = Math.round(progressPercentage) + '%';
+    progressText.textContent = `Progress: ${completedCheckboxes}/${totalCheckboxes} completed`;
+  }
+
+  
+  document.getElementById('habitForm1').addEventListener('change', function () {
+    updateProgress('habitForm1', 'progressBar1', 'progressText1');
+  });
+
+  document.getElementById('habitForm2').addEventListener('change', function () {
+    updateProgress('habitForm2', 'progressBar2', 'progressText2');
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!--Table List-->
+  <div class="container py-5">
+    <h2 class="text-center mb-4">Weekly Eco Habit Tracker</h2>
+    <p class="text-center mb-4 text-muted">
+      Track your daily habits and stay committed to a more sustainable lifestyle. Small actions like staying hydrated,
+      staying active, and mindful reading can contribute to a healthier you and a healthier planet.
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle habit-table">
+        <thead class="table-success text-center">
+          <tr>
+            <th>Habit</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Water Plants</td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+          </tr>
+          <tr>
+            <td>Use Paper bag</td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+          </tr>
+          <tr>
+            <td>Read Book</td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+            <td class="text-center"><input type="checkbox" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Custom Habit Creator -->
+  <div class="habit-card m-2">
+    <h5>➕ Add New Habit</h5>
+    <form>
+      <div class="mb-2">
+        <input type="text" class="form-control" placeholder="Habit name (e.g., Recycle)" />
+      </div>
+      <div class="mb-2">
+        <select class="form-select">
+          <option selected>Select Icon</option>
+          <option>♻️</option>
+          <option>🚴</option>
+          <option>🧘</option>
+        </select>
+      </div>
+      <div class="mb-2">
+        <input type="color" class="form-control form-control-color" value="#94acf4" title="Choose color">
+      </div>
+      <button class="btn">Create Habit</button>
+    </form>
+  </div>
+
+  <br>
+  <br>
+  <!--Flip Card-->
+  <div class="container py-5">
+    <h2 class="text-center mb-4">Your Eco Achievements</h2>
+    <div class="row justify-content-center gy-4">
+
+      <!-- Badge 1 -->
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front d-flex flex-column justify-content-center align-items-center">
+              <img src="Images/1-removebg-preview.png" alt="Green Streak Badge" class="badge-img mb-3">
+              <p class="title">Green Streak</p>
+              <p>Hover me</p>
+            </div>
+            <div class="flip-card-back d-flex flex-column justify-content-center align-items-center">
+              <p class="title">Green Streak</p>
+              <p>You’ve kept your sustainable habits alive and thriving! Keep that green energy going.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badge 2 -->
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front d-flex flex-column justify-content-center align-items-center">
+              <img src="Images/2-removebg-preview.png" alt="Eco Warrior Badge" class="badge-img mb-3">
+              <p class="title">Eco Warrior</p>
+              <p>Hover me</p>
+            </div>
+            <div class="flip-card-back d-flex flex-column justify-content-center align-items-center">
+              <p class="title">Eco Warrior</p>
+              <p>Consistently taking small steps for a better planet. You’re not just living, you’re leading.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badge 3 -->
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front d-flex flex-column justify-content-center align-items-center">
+              <img src="Images/3-removebg-preview.png" alt="Sustaina-Star Badge" class="badge-img mb-3">
+              <p class="title">Sustaina-Star</p>
+              <p>Hover me</p>
+            </div>
+            <div class="flip-card-back d-flex flex-column justify-content-center align-items-center">
+              <p class="title">Sustaina-Star</p>
+              <p>You’ve hit a new level of consistency in your eco habits. Shine on, Sustaina-Star!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!--footer-->
+  <footer style="background-color: #94acf4; color: #2c3e50;" class="pt-4 pb-4 mt-5">
+    <div class="container">
+      <div class="row text-center text-md-start">
+        <div class="col-md-4 mb-4">
+          <h5>Follow Us</h5>
+          <a href="https://www.facebook.com/" class="footer-icon me-2"><i class="fab fa-facebook fa-lg"></i></a>
+          <a href="https://twitter.com/" class="footer-icon me-2"><i class="fab fa-twitter fa-lg"></i></a>
+          <a href="https://www.linkedin.com/" class="footer-icon me-2"><i class="fab fa-instagram fa-lg"></i></a>
+          <a href="https://www.instagram.com/" class="footer-icon"><i class="fab fa-linkedin fa-lg"></i></a>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Navigate</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="subpage1.html" class="footer-link">Dashboard</a></li>
+            <li><a href="subpage3.html" class="footer-link">Books recs</a></li>
+            <li><a href="aboutus.html" class="footer-link">About Us</a></li>
+            <li><a href="signin.html" class="footer-link">Sign in/up</a></li>
+            <li><a href="subpage2.html" class="footer-link">Habit Page</a></li>
+            <li><a href="references.html" class="footer-link">References</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5>Contact Us</h5>
+          <p class="footp">Email: <a href="mailto:dokipkip.apple@gmail.com"
+              class="footer-link">dokipkip.apple@gmail.com</a></p>
+          <p class="footp">Phone: <a href="tel:+95882224766" class="footer-link">09 882 224 766</a></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center pt-3">
+          <p class="footp">&copy; 2025 HabitFlow. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
